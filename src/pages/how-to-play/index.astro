@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SpecCard from '../../components/SpecCard.astro';
+import PromoBanner from '../../components/PromoBanner.astro';
+import Ornament from '../../components/Ornament.astro';
+import RelatedLinks from '../../components/RelatedLinks.astro';
+import FaqSection from '../../components/FaqSection.astro';
+import { buildFaqSchema } from '../../lib/faqSchema';
+import { getEntry } from 'astro:content';
+
+const page = await getEntry('pages', 'how-to-play');
+if (!page) throw new Error('Missing src/content/pages/how-to-play.md');
+const { Content } = await page.render();
+const faqSchema = buildFaqSchema(page.data.faqItems);
+---
+<BaseLayout title={page.data.metaTitle} description={page.data.metaDescription} path="/how-to-play/" structuredData={faqSchema}>
+  <section class="section">
+    <div class="article-wrap">
+      <h1>{page.data.h1}</h1>
+
+      {page.data.specs && <SpecCard title="Rules at a Glance" rows={page.data.specs} />}
+
+      <PromoBanner
+        title="Put the rules into practice"
+        subtitle="Buffalo 50 is waiting in the casino's game library."
+        dataCta="how-to-play-top"
+        buttonLabel="Play Buffalo 50"
+      />
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      <Ornament />
+
+      <PromoBanner
+        title="Ready for your first spin?"
+        subtitle="Open Buffalo 50 at the casino."
+        dataCta="how-to-play-bottom"
+        buttonLabel="Play Now"
+      />
+
+      <FaqSection items={page.data.faqItems} />
+
+      <RelatedLinks links={[
+        { href: '/', label: '← Buffalo 50 Slot Guide' },
+        { href: '/free-play/', label: 'Buffalo 50 Free Play' },
+      ]} />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,77 @@
+---
+interface Props {
+  size?: 'large' | 'medium';
+}
+const { size = 'large' } = Astro.props;
+---
+<div class={`badge ${size}`}>
+  <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="badgeSky" cx="50%" cy="35%" r="70%">
+        <stop offset="0%" stop-color="#FBF7EC"/>
+        <stop offset="100%" stop-color="#EAE0C7"/>
+      </radialGradient>
+    </defs>
+
+    <!-- outer rings -->
+    <circle cx="200" cy="200" r="196" fill="url(#badgeSky)" stroke="#2C4A34" stroke-width="6"/>
+    <circle cx="200" cy="200" r="180" fill="none" stroke="#B4892C" stroke-width="2"/>
+    <circle cx="200" cy="200" r="172" fill="none" stroke="#B4892C" stroke-width="1" stroke-dasharray="2 5"/>
+
+    <!-- sun -->
+    <circle cx="200" cy="120" r="34" fill="#D9B45C" opacity="0.9"/>
+    <circle cx="200" cy="120" r="34" fill="none" stroke="#B4892C" stroke-width="1.5"/>
+
+    <!-- mountains -->
+    <path d="M20 260 L90 170 L140 220 L190 140 L250 230 L300 160 L380 260 Z" fill="#2C4A34" opacity="0.85"/>
+    <path d="M20 280 L100 210 L160 250 L220 190 L290 260 L380 280 L380 340 L20 340 Z" fill="#1E3324"/>
+
+    <!-- pines -->
+    <g fill="#1E3324">
+      <path d="M60 330 L72 300 L84 330 Z"/>
+      <path d="M60 320 L72 292 L84 320 Z"/>
+      <path d="M320 330 L332 300 L344 330 Z"/>
+      <path d="M320 320 L332 292 L344 320 Z"/>
+    </g>
+
+    <!-- ground band -->
+    <rect x="20" y="330" width="360" height="20" fill="#B5541F" opacity="0.25"/>
+
+    <!-- buffalo silhouette (original line art, not traced from any game asset) -->
+    <g transform="translate(200,268)">
+      <path d="M-95 18 C-90 -5 -75 -18 -60 -14 C-58 -32 -40 -46 -20 -40 C-14 -54 8 -56 14 -42 C36 -50 58 -34 50 -14 C80 -14 96 8 82 26 C96 34 90 48 74 48 L-72 48 C-92 48 -100 32 -95 18 Z" fill="#7A2430"/>
+      <circle cx="-58" cy="6" r="4" fill="#F3ECDA"/>
+      <path d="M-70 -18 C-76 -28 -74 -38 -64 -40" stroke="#2C4A34" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M-52 -20 C-46 -30 -48 -40 -58 -42" stroke="#2C4A34" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- eagle -->
+    <g transform="translate(300,130)">
+      <path d="M0 0 C-14 -6 -26 -2 -30 6 C-22 6 -16 10 -14 16 C-8 10 2 10 6 16 C10 10 20 6 28 8 C22 0 12 -6 0 0 Z" fill="#B5541F"/>
+      <circle cx="2" cy="4" r="3" fill="#2C4A34"/>
+    </g>
+
+    <!-- wolf -->
+    <g transform="translate(96,150)">
+      <path d="M0 20 C-4 6 4 -6 16 -4 C18 -10 26 -12 30 -6 C40 -8 46 0 42 8 C48 12 46 20 38 20 Z" fill="#2C4A34"/>
+      <circle cx="12" cy="4" r="1.6" fill="#F3ECDA"/>
+    </g>
+
+    <!-- ribbon banner -->
+    <path d="M60 210 L340 210 L318 232 L340 254 L60 254 L82 232 Z" fill="#7A2430"/>
+    <path d="M60 210 L82 232 L60 254 Z" fill="#5E1A24"/>
+    <path d="M340 210 L318 232 L340 254 Z" fill="#5E1A24"/>
+    <text x="200" y="240" font-family="Georgia, serif" font-size="30" font-weight="700" fill="#F3ECDA" text-anchor="middle" letter-spacing="1">BUFFALO 50</text>
+
+    <!-- small paylines badge -->
+    <circle cx="200" cy="290" r="26" fill="#B4892C" stroke="#F3ECDA" stroke-width="2"/>
+    <text x="200" y="284" font-family="Georgia, serif" font-size="9" fill="#2B2015" text-anchor="middle">50</text>
+    <text x="200" y="297" font-family="Georgia, serif" font-size="8" fill="#2B2015" text-anchor="middle">LINES</text>
+  </svg>
+</div>
+
+<style>
+  .badge { width: 100%; max-width: 380px; margin: 0 auto; }
+  .badge.medium { max-width: 240px; }
+  .badge svg { width: 100%; height: auto; filter: drop-shadow(0 10px 24px rgba(43,32,21,0.25)); }
+</style>

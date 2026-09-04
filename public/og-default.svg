@@ -1,0 +1,8 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F3ECDA"/>
+  <rect x="0" y="0" width="1200" height="630" fill="none" stroke="#B4892C" stroke-width="16"/>
+  <circle cx="950" cy="200" r="150" fill="#2C4A34" opacity="0.08"/>
+  <path d="M850 260 C860 230 880 218 900 222 C900 205 915 192 930 197 C935 185 950 185 955 197 C972 192 987 208 982 222 C1005 222 1015 242 1000 258 C1010 270 1000 280 988 280 L880 280 C865 280 855 270 850 260 Z" fill="#B5541F"/>
+  <text x="80" y="300" font-family="Georgia, serif" font-size="60" font-weight="700" fill="#2B2015">Buffalo 50</text>
+  <text x="80" y="355" font-family="Georgia, serif" font-size="26" fill="#6B5D46">Independent guide: RTP, paylines, symbols &amp; free play</text>
+</svg>

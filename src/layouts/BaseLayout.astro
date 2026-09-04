@@ -1,0 +1,120 @@
+---
+import '../styles/global.css';
+import CTAButton from '../components/CTAButton.astro';
+import { REF_URL } from '../lib/referral';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  ogImage?: string;
+  structuredData?: Record<string, any> | Record<string, any>[];
+}
+
+const { title, description, path = '/', ogImage = '/og-default.svg', structuredData } = Astro.props;
+const siteUrl = 'https://buffalo50.co';
+const canonical = new URL(path, siteUrl).toString();
+const currentPath = Astro.url.pathname;
+
+const GOOGLE_SITE_VERIFICATION = '0kkLTq7bXrV39KRG2TzpzT_WJ_vDMNt1tqDj-AGGeFg';
+
+// Main navigation intentionally includes only the three content pages.
+// The legal/utility pages (Responsible Gaming, Privacy Policy, Terms) are
+// linked exclusively from the footer and are never cross-linked from articles.
+const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/free-play/', label: 'Free Play' },
+  { href: '/how-to-play/', label: 'How to Play' },
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL(ogImage, siteUrl).toString()} />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL(ogImage, siteUrl).toString()} />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="robots" content="index, follow" />
+  {GOOGLE_SITE_VERIFICATION && (
+    <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />
+  )}
+  {structuredData && (
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  )}
+</head>
+<body>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle-input" />
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a href="/" class="logo">
+        <svg width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="12" fill="#B4892C" stroke="#F3ECDA" stroke-width="1.5"/><path d="M5 17 C6 12 9 10 11 11 C11 8 14 6 16 8 C20 7 22 11 20 14 C23 15 22 18 19 18 Z" fill="#2C4A34"/></svg>
+        Buffalo<span class="logo-num">50</span>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        {navItems.map((item) => (
+          <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined}>{item.label}</a>
+        ))}
+      </nav>
+
+      <div class="header-right">
+        <CTAButton label="Play Now" dataCta="header" />
+        <label for="nav-toggle" class="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </label>
+      </div>
+    </div>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      {navItems.map((item) => (
+        <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined}>{item.label}</a>
+      ))}
+    </nav>
+  </header>
+
+  <main>
+    <slot />
+  </main>
+
+  <a href={REF_URL} class="floating-cta" data-cta="floating" rel="nofollow sponsored noopener" target="_blank">
+    Play Buffalo 50
+  </a>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="footer-notice">
+        Buffalo50.co is an independent informational website. It is not the official website of
+        Endorphina and is not endorsed by or affiliated with the game developer. Gambling involves
+        financial risk and is intended only for adults who meet the legal gambling age in their
+        jurisdiction. Play responsibly.
+      </p>
+      <div class="footer-links">
+        <a href="/">Home</a>
+        <a href="/free-play/">Free Play</a>
+        <a href="/how-to-play/">How to Play</a>
+        <a href="/responsible-gaming/">Responsible Gaming</a>
+        <a href="/privacy-policy/">Privacy Policy</a>
+        <a href="/terms/">Terms of Use</a>
+      </div>
+      <p class="footer-bottom">© {new Date().getFullYear()} Buffalo50.co — Independent informational website.</p>
+    </div>
+  </footer>
+</body>
+</html>

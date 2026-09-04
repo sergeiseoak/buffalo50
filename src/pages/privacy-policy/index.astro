@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getEntry } from 'astro:content';
+
+const page = await getEntry('pages', 'privacy-policy');
+if (!page) throw new Error('Missing src/content/pages/privacy-policy.md');
+const { Content } = await page.render();
+---
+<BaseLayout title={page.data.metaTitle} description={page.data.metaDescription} path="/privacy-policy/">
+  <section class="section">
+    <div class="article-wrap legal-page">
+      <h1>{page.data.h1}</h1>
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .legal-page { max-width: 720px; }
+</style>

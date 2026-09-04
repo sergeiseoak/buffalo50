@@ -1,0 +1,16 @@
+---
+interface Row { label: string; value: string; }
+interface Props {
+  title?: string;
+  rows: Row[];
+}
+const { title = 'Field Notes', rows } = Astro.props;
+---
+<div class="spec-card">
+  <p class="spec-title">{title}</p>
+  <div class="spec-grid">
+    {rows.map((r) => (
+      <div class="spec-row"><span>{r.label}</span><b>{r.value}</b></div>
+    ))}
+  </div>
+</div>

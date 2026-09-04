@@ -1,0 +1,20 @@
+---
+import { REF_URL } from '../lib/referral';
+
+interface Props {
+  label: string;
+  dataCta: string;
+  size?: 'md' | 'lg';
+  outline?: boolean;
+}
+const { label, dataCta, size = 'md', outline = false } = Astro.props;
+---
+<a
+  href={REF_URL}
+  rel="nofollow sponsored noopener"
+  target="_blank"
+  data-cta={dataCta}
+  class={outline ? 'btn-outline' : `btn-primary ${size === 'md' ? 'sm' : ''}`}
+>
+  {label}
+</a>
