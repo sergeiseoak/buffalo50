@@ -1,68 +1,27 @@
-# Buffalo 50 — buffalo50.co
+# Buffalo50.co — Cloudflare Pages static site
 
-Static site (Astro) on Cloudflare Pages. Warm, vintage "field guide" design —
-intentionally distinct from any other project in this account (no dark/neon
-theme, no angular shapes, different fonts and components).
+Ready-to-deploy static website. No build step is required.
 
-## Site structure
+## Deploy with GitHub + Cloudflare Pages
+1. Create a GitHub repository and upload **the contents of this folder** (not the ZIP itself).
+2. In Cloudflare: Workers & Pages → Create → Pages → Connect to Git.
+3. Select the repository.
+4. Framework preset: **None**.
+5. Build command: leave empty.
+6. Build output directory: `/` (repository root).
+7. Deploy.
+8. Attach the custom domain `buffalo50.co`.
+9. In Google Search Console add/verify the property. The verification meta tag is already present on every page.
 
-**Content pages** (cross-linked with each other, shown in the main nav):
+## Affiliate redirect
+All CTA buttons link to `/go/`. Cloudflare Pages `_redirects` sends `/go/` via HTTP 301 to the affiliate URL:
 
-- `index.md` → `/`
-- `free-play.md` → `/free-play/`
-- `how-to-play.md` → `/how-to-play/`
+`https://refpa94475.com/L?tag=d_6051184m_67279c_&site=6051184&ad=67279&r=en/registration`
 
-**Legal/utility pages** (footer-only, intentionally excluded from all
-cross-linking and from the main navigation, per requirement):
+To change the affiliate URL later, edit `_redirects` only.
 
-- `responsible-gaming.md` → `/responsible-gaming/`
-- `privacy-policy.md` → `/privacy-policy/`
-- `terms.md` → `/terms/`
+## Content
+Main pages: `/`, `/how-to-play/`, `/free-play/`. Technical/footer pages: `/terms/`, `/privacy-policy/`, `/responsible-gaming/`.
 
-## Editing content
-
-Edit the Markdown body in `src/content/pages/*.md` for article text, and the
-frontmatter for SEO fields (`metaTitle`, `metaDescription`, `h1`) and the
-"Field Notes" fact card (`specs: [{ label, value }]`).
-
-FAQ: add a `faqItems: [{ q, a }]` list to any page's frontmatter and an
-accordion + `FAQPage` structured data appear automatically.
-
-No `.astro` file needs to be touched to change text.
-
-## Adding a new content page
-
-1. Create `src/content/pages/new-page.md` (copy an existing content page's
-   frontmatter as a template).
-2. Create `src/pages/new-page/index.astro` (copy `free-play/index.astro`).
-3. Add it to `navItems` in `src/layouts/BaseLayout.astro` if it should appear
-   in the main nav and participate in `RelatedLinks` cross-links.
-
-Legal pages should **not** be added to `navItems` or to any `RelatedLinks`
-list — link them only from the footer (already wired up).
-
-## Referral link
-
-`src/lib/referral.ts` exports `REF_URL = '/info/'`, which every `<CTAButton />`
-and the floating CTA use. The real destination is set in `public/_redirects`:
-
-```
-/info/ https://refpa94475.com/L?tag=d_6051184m_67279c_&site=6051184&ad=67279&r=en/registration 301
-```
-
-Change only that file to update the destination — no rebuild required.
-
-## Local development
-
-```bash
-npm install
-npm run dev
-npm run build
-npm run preview
-```
-
-## Deployment — GitHub + Cloudflare Pages
-
-1. `git add . && git commit -m "..." && git push`
-2. Cloudflare Pages: Build command `npm run build`, output directory `dist`
-3. Google Search Console verification is already wired up in `BaseLayout.astro`
+## SEO
+Includes canonical tags, meta descriptions, OG/Twitter metadata, Google Search Console verification, robots.txt, sitemap.xml, structured data, semantic headings and internal navigation.
