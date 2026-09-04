@@ -1,27 +1,26 @@
-# Buffalo50.co — Cloudflare Pages static site
+# Buffalo50.co — v2 realistic game-inspired static site
 
-Ready-to-deploy static website. No build step is required.
+This version is intentionally built as plain static HTML/CSS/JS for a Desktop folder -> GitHub -> Cloudflare Pages workflow.
 
-## Deploy with GitHub + Cloudflare Pages
-1. Create a GitHub repository and upload **the contents of this folder** (not the ZIP itself).
-2. In Cloudflare: Workers & Pages → Create → Pages → Connect to Git.
-3. Select the repository.
-4. Framework preset: **None**.
-5. Build command: leave empty.
-6. Build output directory: `/` (repository root).
-7. Deploy.
-8. Attach the custom domain `buffalo50.co`.
-9. In Google Search Console add/verify the property. The verification meta tag is already present on every page.
+## Structure
+- `index.html` — homepage
+- `how-to-play/`
+- `free-play/`
+- `terms/`
+- `privacy-policy/`
+- `responsible-gaming/`
+- `assets/` — CSS, JS and visual assets
+- `_redirects` — `/go/` 301 redirect to the supplied affiliate URL
+- `_headers` — basic security/cache headers
+- `robots.txt` and `sitemap.xml`
 
-## Affiliate redirect
-All CTA buttons link to `/go/`. Cloudflare Pages `_redirects` sends `/go/` via HTTP 301 to the affiliate URL:
+## Deploy
+1. Replace your existing local Buffalo50 folder with this folder.
+2. Commit and push the files to the existing GitHub repository.
+3. Cloudflare will deploy the updated static files.
+4. Purge cache only if an old asset remains visible after deployment.
 
-`https://refpa94475.com/L?tag=d_6051184m_67279c_&site=6051184&ad=67279&r=en/registration`
+No Astro, npm build or package manager is required.
 
-To change the affiliate URL later, edit `_redirects` only.
-
-## Content
-Main pages: `/`, `/how-to-play/`, `/free-play/`. Technical/footer pages: `/terms/`, `/privacy-policy/`, `/responsible-gaming/`.
-
-## SEO
-Includes canonical tags, meta descriptions, OG/Twitter metadata, Google Search Console verification, robots.txt, sitemap.xml, structured data, semantic headings and internal navigation.
+## Important
+The game screenshots used in the visual design are the supplied Buffalo 50 screenshots. The site is informational and independent from the game developer.
