@@ -29,12 +29,24 @@ body {
   margin: 0;
   background-color: var(--paper);
   background-image:
-    radial-gradient(circle at 10% 5%, rgba(181,84,31,0.06), transparent 40%),
-    radial-gradient(circle at 90% 15%, rgba(44,74,52,0.07), transparent 45%);
+    radial-gradient(circle at 10% 5%, rgba(181,84,31,0.08), transparent 40%),
+    radial-gradient(circle at 90% 15%, rgba(44,74,52,0.09), transparent 45%),
+    radial-gradient(circle at 50% 100%, rgba(122,36,48,0.05), transparent 50%);
   color: var(--ink);
   font-family: var(--font-body);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 h1, h2, h3, h4 {
@@ -112,16 +124,20 @@ a:focus-visible, button:focus-visible {
 .btn-primary {
   display: inline-flex; align-items: center; gap: 8px;
   font-family: var(--font-display); font-weight: 400; font-size: 1rem; letter-spacing: 0.02em;
-  background: linear-gradient(180deg, var(--gold-light), var(--gold));
+  background: linear-gradient(180deg, #EFCB74, var(--gold-light) 35%, var(--gold) 100%);
   color: var(--forest-dark);
   padding: 12px 28px;
   border-radius: 999px;
   border: 2px solid var(--forest-dark);
-  box-shadow: 0 4px 0 var(--forest-dark);
+  box-shadow:
+    inset 0 2px 1px rgba(255,255,255,0.6),
+    inset 0 -6px 10px rgba(140,62,20,0.25),
+    0 4px 0 var(--forest-dark),
+    0 10px 16px rgba(43,32,21,0.3);
   transition: transform 0.15s ease;
 }
 .btn-primary:hover { transform: translateY(-2px); text-decoration: none; }
-.btn-primary:active { transform: translateY(2px); box-shadow: 0 2px 0 var(--forest-dark); }
+.btn-primary:active { transform: translateY(2px); box-shadow: inset 0 2px 1px rgba(255,255,255,0.6), 0 2px 0 var(--forest-dark); }
 .btn-primary.sm { padding: 8px 18px; font-size: 0.85rem; }
 
 .btn-outline {
@@ -148,12 +164,15 @@ a:focus-visible, button:focus-visible {
   position: fixed; z-index: 60;
   display: flex; align-items: center; justify-content: center; gap: 8px;
   font-family: var(--font-display); font-size: 0.95rem;
-  background: linear-gradient(180deg, var(--gold-light), var(--gold));
+  background: linear-gradient(180deg, #EFCB74, var(--gold-light) 35%, var(--gold) 100%);
   color: var(--forest-dark);
   text-decoration: none;
 }
 @media (min-width: 769px) {
-  .floating-cta { bottom: 24px; right: 24px; padding: 13px 24px; border-radius: 999px; border: 2px solid var(--forest-dark); box-shadow: 0 4px 0 var(--forest-dark), 0 10px 20px rgba(0,0,0,0.2); }
+  .floating-cta {
+    bottom: 24px; right: 24px; padding: 13px 24px; border-radius: 999px; border: 2px solid var(--forest-dark);
+    box-shadow: inset 0 2px 1px rgba(255,255,255,0.6), inset 0 -6px 10px rgba(140,62,20,0.25), 0 4px 0 var(--forest-dark), 0 12px 22px rgba(43,32,21,0.35);
+  }
 }
 @media (max-width: 768px) {
   .floating-cta { left: 0; right: 0; bottom: 0; width: 100%; padding: 16px 16px calc(16px + env(safe-area-inset-bottom)); border-top: 3px solid var(--forest-dark); }
@@ -192,11 +211,16 @@ a:focus-visible, button:focus-visible {
 /* ---- Spec card (fact panel styled like a museum specimen tag) ---- */
 .spec-card {
   background: var(--card);
+  background-image: linear-gradient(160deg, rgba(255,255,255,0.5), transparent 40%);
   border: 2px solid var(--forest);
   border-radius: var(--radius-sm);
   padding: 22px 26px;
   position: relative;
   margin: 28px 0;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 18px 30px -14px rgba(43,32,21,0.35),
+    0 4px 8px rgba(43,32,21,0.12);
 }
 .spec-card::before {
   content: "";
@@ -218,10 +242,15 @@ a:focus-visible, button:focus-visible {
 .promo-badge {
   display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
   background: var(--card);
+  background-image: linear-gradient(160deg, rgba(255,255,255,0.5), transparent 40%);
   border: 2px solid var(--rust);
   border-radius: var(--radius-lg);
   padding: 20px 26px;
   margin: 34px 0;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 16px 28px -14px rgba(43,32,21,0.3),
+    0 3px 6px rgba(43,32,21,0.1);
 }
 .promo-badge-title { font-family: var(--font-display); color: var(--forest-dark); font-size: 1.1rem; margin: 0 0 4px; }
 .promo-badge-sub { margin: 0; font-size: 0.88rem; color: var(--ink-muted); }
